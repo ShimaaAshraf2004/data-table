@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-white: #fff;
+  --color-ice-blue: #f7f9fc;
+  --color-sky-light: #f4f7fcbf;
+  --color-blue: #2264e6;
+  --color-dark-blue: #1354d5;
+  --color-red: #d12953;
+  --color-green: #14804a;
+  --font-inter: "Inter", sans-serif;
+  --max-width-container: 1022px;
+  --shadow-side-menu: 0px 5px 15px 0px rgba(0, 0, 0, 0.08),
+    0px 15px 35px -5px rgba(17, 24, 38, 0.2),
+    0px 0px 0px 1px rgba(152, 161, 179, 0.1);
+  --shadow-delete-all-btn: 0px 1px 1px 0px rgba(0, 0, 0, 0.1),
+    0px 0px 0px 1px rgba(70, 79, 96, 0.16),
+    0px 2px 5px 0px rgba(89, 96, 120, 0.1);
+}
+
+@layer components {
+  .my-container {
+    @apply mx-auto max-w-[var(--max-width-container)];
+  }
+}
+
+@utility my-transition {
+  transition: all 0.4s ease;
+}
