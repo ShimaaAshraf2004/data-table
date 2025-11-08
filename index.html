@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles/output.css" />
     <title>Data Table</title>
   </head>
-  <body class="font-inter h-screen bg-sky-light py-10 px-4">
+  <body class="font-inter flex h-screen bg-sky-light py-10 px-4">
     <div
       class="my-container relative bg-ice-blue rounded-lg border border-solid border-[#98a1b21a] h-[800px] overflow-y-auto"
     >
@@ -156,23 +156,16 @@
       </footer>
     </div>
     <!-- form popup -->
-    <!-- <div class="invisible fixed inset-0 flex items-center justify-center bg-[#00000099] z-999 my-transition" id="overlay">
-      <div id="popup"class="bg-white p-[30px] rounded-lg w-[90%] max-w-[500px] scale-0 my-transition">
-        <div
-          class="flex items-center justify-between gap-2.5 mb-1.5 border-b border-solid border-[#eee]">
-          <button
-            class="text-[30px] text-[#7f8c8d] cursor-pointer hover:text-[#e74c3c]"
-            id="close-popup-btn"
-          >
+        <!-- <form action="#" id="Customer-form" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div class="bg-white p-6 rounded-lg shadow-lg max-w-[500px] w-full">
+          <div class="flex items-center justify-between gap-2.5 mb-1.5 border-b border-solid border-[#eee]">
+          <button class="text-[30px] text-[#7f8c8d] cursor-pointer hover:text-[#e74c3c]" id="close-popup-btn">
             &times;
           </button>
           <h2 class="title text-[20px] text-blue font-bold">Add New Customer</h2>
         </div>
-        <form action="#" id="Customer-form">
           <div class="flex flex-col gap-2 mb-1">
-            <label for="name" class="text-[#2c3e50] font-bold text-[20px]"
-              >Name:</label
-            >
+            <label for="name" class="text-[#2c3e50] font-bold text-[20px]">Name:</label>
             <input
               type="text"
               id="name"
@@ -183,8 +176,7 @@
             <label
               for="description"
               class="text-[#2c3e50] font-bold text-[20px]"
-              >Description:</label
-            >
+              >Description:</label>
             <textarea
               name="description"
               id="description"
@@ -231,14 +223,11 @@
             </select>
           </div>
           <div class="flex flex-col gap-2 mb-1 w-[50%]">
-            <label for="depodit" class="text-[#2c3e50] font-bold text-[20px]"
-              >Depodit:</label
-            >
+            <label for="deposit" class="text-[#2c3e50] font-bold text-[20px]">Deposit:</label>
             <input
               type="number"
-              id="depodit"
-              class="input-depodit px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-            />
+              id="deposit"
+              class="input-deposit px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"/>
           </div>
           </div>
           <div class="flex gap-2 mt-5">
@@ -250,14 +239,13 @@
             </button>
             <button
               id="close-popup-btn"
-              type="submit"
-              class="py-1 px-3 bg-[#ef4444] text-white text-[20px] rounded-md cursor-pointer hover:bg-[#cc2222] hover:translate-y-[-3px] my-transition"
-            >
+              type="button"
+              class="py-1 px-3 bg-[#ef4444] text-white text-[20px] rounded-md cursor-pointer hover:bg-[#cc2222] hover:translate-y-[-3px] my-transition">
               Cancel
             </button>
           </div>
+          </div>
         </form>
-      </div>
-    </div> -->
+      </div> -->
   </body>
 </html>

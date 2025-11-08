@@ -207,6 +207,9 @@
   .top-\[45px\] {
     top: 45px;
   }
+  .top-\[50\%\] {
+    top: 50%;
+  }
   .top-\[177px\] {
     top: 177px;
   }
@@ -225,9 +228,6 @@
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
-  .z-50 {
-    z-index: 50;
-  }
   .z-500 {
     z-index: 500;
   }
@@ -236,6 +236,24 @@
   }
   .z-1100 {
     z-index: 1100;
+  }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
   }
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
@@ -306,6 +324,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .w-screen {
+    width: 100vw;
   }
   .max-w-\[500px\] {
     max-width: 500px;
@@ -463,6 +484,9 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
+  }
   .p-\[30px\] {
     padding: 30px;
   }
@@ -609,6 +633,10 @@
   }
   .shadow-delete-all-btn {
     --tw-shadow: 0px 1px 1px 0px var(--tw-shadow-color, rgba(0, 0, 0, 0.1)), 0px 0px 0px 1px var(--tw-shadow-color, rgba(70, 79, 96, 0.16)), 0px 2px 5px 0px var(--tw-shadow-color, rgba(89, 96, 120, 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-side-menu {
