@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+/*
 @theme {
   --color-white: #fff;
   --color-ice-blue: #f7f9fc;
@@ -16,7 +16,7 @@
   --shadow-delete-all-btn: 0px 1px 1px 0px rgba(0, 0, 0, 0.1),
     0px 0px 0px 1px rgba(70, 79, 96, 0.16),
     0px 2px 5px 0px rgba(89, 96, 120, 0.1);
-}
+  }
 
 @layer components {
   .my-container {
@@ -26,4 +26,66 @@
 
 @utility my-transition {
   transition: all 0.4s ease;
+} */
+
+/* Zack */
+@theme {
+  --font-inter: "Inter", "sans-serif";
+  
+  --color-gray-0: rgb(247, 249, 252);
+  --color-gray-1: rgb(233, 237, 245);
+  --color-indigo-0: rgb(237, 237, 252);
+  --color-green-0: rgb(225, 252, 239);
+  --color-red-0: rgb(255, 237, 239);
+  --color-orange-0: rgb(252, 242, 230);
+
+  --shadow-primary-btn-default: 0px 0px 0px 1px rgb(94, 90, 219),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-primary-btn-hover: 0px 0px 0px 1px rgb(73, 69, 196),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-primary-btn-active: 0px 0px 0px 4px rgba(94, 90, 219, 0.4),
+    0px 0px 0px 1px rgb(94, 90, 219), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-primary-btn-disabled: 0px 0px 0px 1px rgb(158, 155, 245),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-secondary-btn-default: 0px 0px 0px 1px rgba(70, 79, 96, 0.16),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-secondary-btn-hover: 0px 0px 0px 1px rgba(70, 79, 96, 0.32),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-secondary-btn-active: 0px 0px 0px 4px rgba(94, 90, 219, 0.4),
+    0px 0px 0px 1px rgba(70, 79, 96, 0.32), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-secondary-btn-disabled: 0px 0px 0px 1px rgba(70, 79, 96, 0.2);
+  --shadow-danger-btn-default: 0px 0px 0px 1px rgb(209, 41, 61),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-danger-btn-hover: 0px 0px 0px 1px rgb(186, 27, 46),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-danger-btn-active: 0px 0px 0px 4px rgba(94, 90, 219, 0.4),
+    0px 0px 0px 1px rgb(209, 41, 61), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  --shadow-primary-input-default: 0px 0px 0px 1px rgba(134, 143, 160, 0.16),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  --shadow-primary-input-hover: 0px 0px 0px 1px rgba(134, 143, 160, 0.4),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  --shadow-primary-input-focus: 0px 0px 0px 4px rgba(94, 90, 219, 0.4),
+    0px 0px 0px 1px rgba(134, 143, 160, 0.32),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  --shadow-primary-input-disabled: 0px 0px 0px 1px rgba(134, 143, 160, 0.24);
+}
+
+.btn {
+  @apply cursor-pointer rounded-md px-3 py-1 text-center text-sm font-medium transition-all duration-300 ease-in-out;
+}
+
+.primary-btn {
+  @apply bg-indigo-500 text-white shadow-primary-btn-default hover:bg-indigo-600 hover:shadow-primary-btn-hover active:shadow-primary-btn-active disabled:bg-indigo-400 disabled:shadow-primary-btn-disabled disabled:text-indigo-0;
+}
+
+.secondary-btn {
+  @apply bg-white text-gray-700 shadow-secondary-btn-default hover:text-gray-900 hover:shadow-secondary-btn-hover active:shadow-secondary-btn-active disabled:bg-gray-0 disabled:shadow-secondary-btn-disabled disabled:text-gray-400;
+}
+
+.danger-btn {
+  @apply bg-red-500 text-white shadow-danger-btn-default hover:bg-red-600 hover:shadow-danger-btn-hover active:shadow-danger-btn-active;
+}
+
+.primary-input {
+  @apply rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-700 outline-none shadow-primary-input-default transition-all duration-300 ease-in-out hover:shadow-primary-input-hover focus:shadow-primary-input-focus disabled:shadow-primary-input-disabled disabled:cursor-not-allowed;
 }
