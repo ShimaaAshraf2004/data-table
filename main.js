@@ -1,11 +1,12 @@
 const addCustomerBtn = document.getElementById("add-customer-btn");
 const addCustomerForm = document.getElementById("Customer-form");
 const arrayofCustomers = JSON.parse(localStorage.getItem("customers")) || [];
+
 const saveDataCustomers = () => {
   localStorage.setItem("customers", JSON.stringify(arrayofCustomers));
 }
 
-const addCustomer = () => {
+const addCustomer = (nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue) => {
   let newCustomer = {
     id: null,
     name: nameValue,
@@ -20,7 +21,47 @@ const addCustomer = () => {
   saveDataCustomers();
 }
 
-const createOverlay = ()=>{
+const attachFormEvents = (form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const inputName = form.querySelector(".input-name");
+    const inputDescription = form.querySelector(".input-description");
+    const inputStatus = form.querySelector(".input-status");
+    const inputRate = form.querySelector(".input-rate");
+    const inputCurancy = form.querySelector(".input-curancy");
+    const inputDepodit = form.querySelector(".input-depodit");
+    const nameValue = inputName.value.trim();
+    const descriptionValue = inputDescription.value.trim();
+    const statusValue = inputStatus.value;
+    const rateValue = inputRate.value;
+    const curancyValue = inputCurancy.value;
+    const depositValue = inputDepodit.value;
+      console.log("Form Data:", {
+      nameValue,
+      descriptionValue,
+      statusValue,
+      rateValue,
+      curancyValue,
+      depositValue,
+    });
+  });
+};
+
+const closePopup = (form,overlay) => {
+  const closebtns = form.querySelectorAll("#close-popup-btn");
+  closebtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      form.classList.remove("scale-100");
+      form.classList.add("scale-0");
+      setTimeout(() => {
+        form.remove();
+        overlay.remove();
+      }, 300);
+    });
+  });
+}
+
+const createOverlay = () => {
   const overlay = document.createElement("div");
   overlay.className = `fixed inset-0 flex items-center justify-center bg-[#00000099] z-500 my-transition`;
   return overlay;
@@ -28,11 +69,23 @@ const createOverlay = ()=>{
 
 const creatCustomerForm = (action, customer)=>{
   const customerForm = document.createElement("form");
-  customerForm.classList = `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-999`;
+  customerForm.classList = `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-999 my-transition scale-0`;
   customerForm.append(containerOfElementsInForm(action,customer));
   const overlay = createOverlay();
   document.body.append(customerForm, overlay);
+  attachFormEvents(customerForm);
+  closePopup(customerForm,overlay);
+    // ضع هذا الكود هنا مباشرة بعد append
+  requestAnimationFrame(() => {
+    customerForm.classList.remove("scale-0");
+    customerForm.classList.add("scale-100");
+  });
+  const inputName = customerForm.querySelector(".input-name");
+    setTimeout(() => {
+      inputName.focus();
+  },100);
 }
+
 const containerOfElementsInForm = (action,customer) => {
   const containerElements = document.createElement("div");
   containerElements.classList = "bg-white p-6 rounded-lg shadow-lg max-w-[500px] w-full";
@@ -95,6 +148,7 @@ const createDescriptionInput = () => {
       name="description"
       id="description"
       class="input-description w-full mx-h-[200px] px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"></textarea>`;
+
   return containerDescription;
 }
 
@@ -145,7 +199,7 @@ const createContainerCurancyAndDeposit = () => {
 
 const createCurancyInput = () => {
   const containerCutancy = document.createElement("div");
-  containerCutancy.classList = "flex gap-2.5 justify-between items-center flex-wrap";
+  containerCutancy.classList = "flex flex-col gap-2 mb-1 w-[47%]";
   containerCutancy.innerHTML = `
               <label for="curancy" class="text-[#2c3e50] font-bold text-[20px]">Curancy:</label>
             <select
@@ -195,16 +249,17 @@ const addNewCustomerBtn = () => {
 const closeForm = () => {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.id = "close-form-btn";
+  btn.id = "close-popup-btn";
   btn.classList = "py-1 px-3 bg-[#ef4444] text-white text-[20px] rounded-md cursor-pointer hover:bg-[#cc2222] hover:translate-y-[-3px] my-transition";
   btn.textContent = "Cancel";
   return btn;
 }
 
 addCustomerBtn.addEventListener("click", () => {
-  createFormTitle("add");
-  creatCustomerForm();
+  creatCustomerForm("add", {});
+//createFormTitle("add");
 // f2("add")
 // f2("edit", { name: "Test Customer" })
 // f2("view", { name: "Test Customer" })
 });
+

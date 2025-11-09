@@ -372,32 +372,32 @@ const deleteCustomer = (id) => {
   }
 };
 
-// addCustomerForm.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   const nameValue = inputName.value.trim();
-//   const descriptionValue = inputDescription.value.trim();
-//   const statusValue = inputStatus.value;
-//   const rateValue = inputRate.value;
-//   const curancyValue = inputCurancy.value;
-//   const depoditValue = inputDepodit.value;
-//   const alertMsg = checkData(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
-//   if(alertMsg) {
-//     alert(alertMsg);
-//   }
-//   if(editingCustomerData) {
-//     updateCustomerData(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
-//   } else {
-//     addCustomer(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
-//   }
-//   closePopup();
-//   saveDataCustomers();
-//   inputName.value = "";
-//   inputDescription.value = "";
-//   inputStatus.value = "";
-//   inputRate.value = "";
-//   inputCurancy.value = "";
-//   inputDepodit.value = "";
-// });
+addCustomerForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const nameValue = inputName.value.trim();
+  const descriptionValue = inputDescription.value.trim();
+  const statusValue = inputStatus.value;
+  const rateValue = inputRate.value;
+  const curancyValue = inputCurancy.value;
+  const depoditValue = inputDepodit.value;
+  const alertMsg = checkData(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
+  if(alertMsg) {
+    alert(alertMsg);
+  }
+  if(editingCustomerData) {
+    updateCustomerData(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
+  } else {
+    addCustomer(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue);
+  }
+  closePopup();
+  saveDataCustomers();
+  inputName.value = "";
+  inputDescription.value = "";
+  inputStatus.value = "";
+  inputRate.value = "";
+  inputCurancy.value = "";
+  inputDepodit.value = "";
+});
 
 // const creatDeleteAllSection  = () => {
 //   const deleteAllSection = document.createElement("div");
