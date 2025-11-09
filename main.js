@@ -256,8 +256,8 @@ const closeForm = () => {
 }
 
 addCustomerBtn.addEventListener("click", () => {
-  creatCustomerForm("add", {});
-//createFormTitle("add");
+  createFormTitle("add");
+  creatCustomerForm();
 // f2("add")
 // f2("edit", { name: "Test Customer" })
 // f2("view", { name: "Test Customer" })
