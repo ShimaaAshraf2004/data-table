@@ -13,10 +13,10 @@ const createOverlay = () => {
 const openAddCustomerModal = () => createCustomerModal("add");
 
 const openEditCustomerModal = () =>
-  createCustomerModal("edit", { fullName: "Shimaa Ashraf" });
+  createCustomerModal("edit", { fullName: "Shimaa Ashraf", description: "Egyptian nationality, Single, 1.50m Tall, White skin, Brown eyes, 40~55Kg weight, Small nose, 0IQ, Likes eating cheese sandwich..." });
 
 const openViewCustomerModal = () =>
-  createCustomerModal("view", { fullName: "Shimaa Ashraf" });
+  createCustomerModal("view", { fullName: "Shimaa Ashraf", description: "Egyptian nationality, Single, 1.50m Tall, White skin, Brown eyes, 40~55Kg weight, Small nose, 0IQ, Likes eating cheese sandwich..." });
 
 const createCustomerModal = (mode, customer) => {
   const form = document.createElement("form");
@@ -52,15 +52,15 @@ const createCustomerModalHeader = (mode) => {
 
 const createCustomerModalBody = (mode, customer) => {
   const body = document.createElement("div");
-  body.className = "flex flex-col gap-8 px-5 py-4 bg-gray-0";
-  body.append(createCustomerNameInput(mode, customer));
+  body.className = "flex flex-col gap-4 px-5 py-4 bg-gray-0";
+  body.append(createCustomerNameInput(mode, customer), createCustomerDescriptionTextarea(mode, customer));
   return body;
 };
 
 const createCustomerNameInput = (mode, customer) => {
   const container = document.createElement("div");
   container.classList = "flex flex-col gap-2 mb-1";
-  const defaultName = mode === "add" ? "" : customer.fullName;
+  const value = mode === "add" ? "" : customer.fullName;
   const disabled = mode === "view" ? "disabled" : "";
   container.innerHTML = `
   <label for="name" class="text-sm font-medium leading-5 text-gray-700 cursor-pointer">Name:</label>
@@ -68,7 +68,23 @@ const createCustomerNameInput = (mode, customer) => {
     type="text"
     id="name"
     class="input-name primary-input"
-    value = "${defaultName}"${disabled}/>`;
+    value ="${value}"${disabled}/>`;
+  return container;
+};
+
+const createCustomerDescriptionTextarea = (mode, customer) => {
+  const container = document.createElement("div");
+  container.classList = "flex flex-col gap-2 mb-1";
+  const value = mode === "add" ? "" : customer.description;
+  const disabled = mode === "view" ? "disabled" : "";
+  container.innerHTML = `
+    <label for="description" class="text-sm font-medium leading-5 text-gray-700 cursor-pointer">Description:</label>
+    <textarea
+      name="description"
+      id="description"
+      class="input-description primary-input"
+      rows="4"
+      ${disabled}>${value}</textarea>`;
   return container;
 };
 
@@ -77,7 +93,7 @@ const createCustomerModalFooter = (mode) => {
   footer.className =
     "bg-white px-5 py-4 flex gap-5 justify-end items-center rounded-bl-xl rounded-br-xl";
   const isViewMode = mode !== "view";
-  const cancelButtonLabel = isViewMode ? "Close" : "Cancel";
+  const cancelButtonLabel = isViewMode ? "Cancel" : "Close";
   const submitButtonLabel = mode === "add" ? "Add Customer" : "Save Changes";
   footer.innerHTML = `
     <button type="button" class="cancelBtn btn secondary-btn" >${cancelButtonLabel}</button>
@@ -90,7 +106,10 @@ const createCustomerModalFooter = (mode) => {
 };
 
 //
-// addCustomerButton.addEventListener("click", openAddCustomerModal);
+addCustomerButton.addEventListener("click", openAddCustomerModal);
 // addCustomerButton.addEventListener("click", openEditCustomerModal );
-addCustomerButton.addEventListener("click", openViewCustomerModal);
+// addCustomerButton.addEventListener("click", openViewCustomerModal);
 
+// openAddCustomerModal()
+openEditCustomerModal()
+// openViewCustomerModal();
