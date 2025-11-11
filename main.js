@@ -533,3 +533,4 @@ addCustomerBtn.addEventListener("click", createCustomerModal);
 // f2("view", { name: "Test Customer" })
 // });
 
+
