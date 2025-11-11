@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/*
+
 @theme {
   --color-white: #fff;
   --color-ice-blue: #f7f9fc;
@@ -26,10 +26,10 @@
 
 @utility my-transition {
   transition: all 0.4s ease;
-} */
+}
 
 /* Zack */
-@theme {
+/* @theme {
   --font-inter: "Inter", "sans-serif";
   
   --color-gray-0: rgb(247, 249, 252);
@@ -88,4 +88,4 @@
 
 .primary-input {
   @apply rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-700 outline-none shadow-primary-input-default transition-all duration-300 ease-in-out hover:shadow-primary-input-hover focus:shadow-primary-input-focus disabled:shadow-primary-input-disabled disabled:cursor-not-allowed;
-}
+} */

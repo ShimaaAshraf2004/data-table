@@ -1,9 +1,9 @@
 "use strict";
 
-//
+
 const addCustomerButton = document.getElementById("addCustomerBtn");
 
-//
+
 const createOverlay = () => {
   const overlay = document.createElement("div");
   overlay.className = `fixed top-0 left-0 w-full h-full z-[99] opacity-50 bg-black`;
@@ -12,16 +12,13 @@ const createOverlay = () => {
 
 const openAddCustomerModal = () => createCustomerModal("add");
 
-const openEditCustomerModal = () =>
-  createCustomerModal("edit", { fullName: "Shimaa Ashraf" });
+const openEditCustomerModal = () => createCustomerModal("edit", { fullName: "Shimaa Ashraf" });
 
-const openViewCustomerModal = () =>
-  createCustomerModal("view", { fullName: "Shimaa Ashraf" });
+const openViewCustomerModal = () => createCustomerModal("view", { fullName: "Shimaa Ashraf" });
 
 const createCustomerModal = (mode, customer) => {
   const form = document.createElement("form");
-  form.className =
-    "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-[497px]:max-w-[440px] w-full rounded-xl z-[100] overflow-hidden";
+  form.className = "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-[497px]:max-w-[440px] w-full rounded-xl z-[100] overflow-hidden";
   form.append(
     createCustomerModalHeader(mode),
     createCustomerModalBody(mode, customer),
@@ -39,8 +36,7 @@ const createCustomerModal = (mode, customer) => {
 
 const createCustomerModalHeader = (mode) => {
   const header = document.createElement("h2");
-  header.className =
-    "text-gray-900 bg-white text-base font-medium leading-5 px-5 py-4";
+  header.className = "text-gray-900 bg-white text-base font-medium leading-5 px-5 py-4";
   header.textContent =
     mode === "add"
       ? "Add New Customer"
@@ -74,13 +70,11 @@ const createCustomerNameInput = (mode, customer) => {
 
 const createCustomerModalFooter = (mode) => {
   const footer = document.createElement("div");
-  footer.className =
-    "bg-white px-5 py-4 flex gap-5 justify-end items-center rounded-bl-xl rounded-br-xl";
+  footer.className = "bg-white px-5 py-4 flex gap-5 justify-end items-center rounded-bl-xl rounded-br-xl";
   const isViewMode = mode !== "view";
   const cancelButtonLabel = isViewMode ? "Close" : "Cancel";
   const submitButtonLabel = mode === "add" ? "Add Customer" : "Save Changes";
-  footer.innerHTML = `
-    <button type="button" class="cancelBtn btn secondary-btn" >${cancelButtonLabel}</button>
+  footer.innerHTML = `<button type="button" class="cancelBtn btn secondary-btn" >${cancelButtonLabel}</button>
     ${
       isViewMode
         ? `<button type="submit" class="submitBtn btn primary-btn">${submitButtonLabel}</button>`
@@ -89,8 +83,8 @@ const createCustomerModalFooter = (mode) => {
   return footer;
 };
 
-//
-// addCustomerButton.addEventListener("click", openAddCustomerModal);
-// addCustomerButton.addEventListener("click", openEditCustomerModal );
+
+//addCustomerButton.addEventListener("click", openAddCustomerModal);
+//addCustomerButton.addEventListener("click", openEditCustomerModal );
 addCustomerButton.addEventListener("click", openViewCustomerModal);
 
