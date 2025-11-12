@@ -39,7 +39,7 @@ const renderIds = () => {
   });
 };
 
-const attachFormEvents = (form) => {
+const attachFormEvents = (form,mode,customer) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const inputName = form.querySelector(".input-name");
@@ -59,7 +59,11 @@ const attachFormEvents = (form) => {
       alert(alertMsg);
       return "";
     }
-    addCustomer(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depositValue);
+    if (mode === "edit") {
+      updateCustomerData(customer.id,nameValue, descriptionValue, statusValue, rateValue, curancyValue, depositValue);
+    } else {
+      addCustomer(nameValue, descriptionValue, statusValue, rateValue, curancyValue, depositValue);
+    }
     closePopup(form);
     saveDataCustomers();
   });
@@ -94,7 +98,7 @@ const createCustomerModal = (mode,customer) => {
     overlay.remove();
   });
   });
-  attachFormEvents(form);
+  attachFormEvents(form, mode, customer);
 }
 
 const createCustomerModalHeader =  (mode) => {
@@ -262,7 +266,7 @@ const createCustomerModalFooter = (mode) => {
   footer.classList = "flex gap-2 mt-5";
   const isViewMode = mode !== "view";
   const cancelBtn = isViewMode ? "close" : "cancel";
-  const submitBtn = mode === "add" ? "Add" : "save";
+  const submitBtn = mode === "add" ? "Add" : "Update";
   footer.innerHTML = `
     <button
       id="add-new-customer-btn"
@@ -382,6 +386,10 @@ const creatCustomerElement = (customer) => {
   deleteBtn.addEventListener("click", () => {
     deleteCustomer(customer.id);
   });
+  const editBtn = tr.querySelector(".edit-btn");
+  editBtn.addEventListener("click", () => {
+    createCustomerModal("edit",customer);
+  });
   return tr;
 };
 
@@ -405,8 +413,26 @@ const renderCustomer = () => {
   }
   saveDataCustomers();
 };
-
 saveDataCustomers();
 renderCustomer();
 
-
+const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue) => {
+  arrayofCustomers = arrayofCustomers.map((customer) => {
+    if (customer.id === id) {
+      return {
+        id: customer.id,
+        name: nameValue,
+        description: descriptionValue,
+        status: statusValue,
+        rate: rateValue,
+        curancy: curancyValue,
+        balance: calculateBalance(depoditValue, rateValue),
+        depodit: depoditValue
+      };
+    }
+    return customer;
+  });
+  saveDataCustomers();
+  renderCustomer();
+  renderIds();
+};
