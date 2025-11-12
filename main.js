@@ -76,14 +76,17 @@ const createOverlay = () => {
 };
 
 const closePopup = (form) => {
-  if(form) form.remove();
+  if (form) {
+    form.classList.replace("scale-100", "scale-0");
+    setTimeout(() => form.remove(), 300);
+  }
   const overlay = document.querySelector(".overlay");
-  if(overlay) overlay.remove();
+  if (overlay) overlay.remove();
 }
 
 const createCustomerModal = (mode,customer) => {
   const form = document.createElement("form");
-  form.classList = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-999 bg-white p-6 rounded-lg shadow-lg max-w-[500px] w-[90%]";
+  form.classList = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-999 bg-white p-6 rounded-lg shadow-lg max-w-[500px] w-[90%] scale-0 my-transition";
   form.append(
     createCustomerModalHeader(mode),
     createCustomerModalBody(mode,customer),
@@ -91,10 +94,18 @@ const createCustomerModal = (mode,customer) => {
   );
   const overlay = createOverlay();
   document.body.append(form,overlay);
+    setTimeout(() => {
+      form.classList.replace("scale-0", "scale-100");
+  }, 10);
+    const inputName = form.querySelector(".input-name");
+    setTimeout(() => {
+      inputName.focus();
+    },100);
   const closeButtons = form.querySelectorAll("#close-popup-btn");
   closeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-    form.remove();
+    form.classList.replace("scale-100", "scale-0");
+    setTimeout(() => form.remove(), 100);
     overlay.remove();
   });
   });
@@ -151,7 +162,7 @@ const createNameInput = (mode,customer)=> {
     id="name"
     class="input-name w-full px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
     value = "${value}"
-    ${disabled}/>`
+    ${disabled}/>`;
   return containerName;
 }
 
