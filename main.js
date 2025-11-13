@@ -1,5 +1,6 @@
 const addCustomerBtn = document.getElementById("add-customer-btn");
 const customersList = document.querySelector(".customers-list");
+const searchInput = document.getElementById("search-input");
 let arrayofCustomers = JSON.parse(localStorage.getItem("customers")) || [];
 
 const saveDataCustomers = () => {
@@ -415,14 +416,21 @@ const deleteCustomer = (id) => {
   }
 };
 
-const renderCustomer = () => {
+const renderCustomer = (customersArray = arrayofCustomers) => {
   customersList.innerHTML = "";
-  if (arrayofCustomers.length > 0) {
-    arrayofCustomers.forEach((customer) => {
+  if (customersArray.length > 0) {
+    customersArray.forEach((customer) => {
       customersList.append(creatCustomerElement(customer));
     });
+  } else {
+    customersList.innerHTML = `
+      <tr class="py-3 pl-2.5 flex gap-5 w-full group">
+        <td colspan="9" class=" w-full text-center py-4 text-gray-500 text-xl">
+          No customers found
+        </td>
+      </tr>
+    `;
   }
-  saveDataCustomers();
 };
 saveDataCustomers();
 renderCustomer();
@@ -447,3 +455,23 @@ const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,
   renderCustomer();
   renderIds();
 };
+
+const searchCustomers = (customers,query) => {
+  return customers.filter((customer) => {
+    return (
+      customer.name.toLowerCase().includes(query.toLowerCase()) ||
+      customer.description.toLowerCase().includes(query.toLowerCase()) ||
+      customer.status.toLowerCase().includes(query.toLowerCase()) ||
+      customer.curancy.toLowerCase().includes(query.toLowerCase()) 
+    );
+  });
+};
+
+searchInput.addEventListener("input", (event) => {
+  const search = event.target.value.trim();
+  let filteredCustomers = arrayofCustomers;
+  if(search) {
+    filteredCustomers = searchCustomers(arrayofCustomers,search);
+  }
+  renderCustomer(filteredCustomers);
+});
