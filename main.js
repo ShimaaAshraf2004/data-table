@@ -1,7 +1,13 @@
 const addCustomerBtn = document.getElementById("add-customer-btn");
 const customersList = document.querySelector(".customers-list");
 const searchInput = document.getElementById("search-input");
+const headingsort = document.querySelectorAll(".sort-col");
+const searchForm = document.querySelector(".search-form");
 let arrayofCustomers = JSON.parse(localStorage.getItem("customers")) || [];
+
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
 
 const saveDataCustomers = () => {
   localStorage.setItem("customers", JSON.stringify(arrayofCustomers));
@@ -467,6 +473,10 @@ const searchCustomers = (customers,query) => {
   });
 };
 
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
 searchInput.addEventListener("input", (event) => {
   const search = event.target.value.trim();
   let filteredCustomers = arrayofCustomers;
@@ -475,3 +485,26 @@ searchInput.addEventListener("input", (event) => {
   }
   renderCustomer(filteredCustomers);
 });
+
+let originalCustomers = [...arrayofCustomers]; 
+let isSorted = false; 
+
+headingsort.forEach((head) => {
+  head.addEventListener("click", () => {
+    const arrowIcons = head.querySelector(".arrow-icon");
+    arrowIcons.classList.toggle("rotate-180");
+    const sortKey = head.dataset.sort;
+    if (!sortKey) return;
+    if (!isSorted) {
+      let sorted = [...arrayofCustomers].sort((a, b) =>
+        a[sortKey].localeCompare(b[sortKey])
+      );
+      renderCustomer(sorted);
+    } else {
+      renderCustomer(originalCustomers);
+    }
+    isSorted = !isSorted;
+  });
+});
+
+

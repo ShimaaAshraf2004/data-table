@@ -14,8 +14,7 @@
     <title>Data Table</title>
   </head>
   <body class="font-inter flex h-screen bg-sky-light py-10 px-4">
-    <div
-      class="my-container relative bg-ice-blue rounded-lg border border-solid border-[#98a1b21a] h-[800px] overflow-y-auto">
+    <div class="my-container relative bg-ice-blue rounded-lg border border-solid border-[#98a1b21a] h-[800px]">
       <header id="header" class="flex items-center justify-between flex-wrap gap-2.5 pt-4 px-5 pb-4">
         <!-- <div class="hidden delete-all items-center gap-2">
           <span class="text-[#464f60]">0 selected</span>
@@ -31,8 +30,7 @@
           </button>
           <form
             action="#"
-            class="bg-white flex gap-2 items-center w-[320px] py-1.5 px-3 rounded-md border border-solid border-[#788baf3d] focus-within:shadow-[0px_1px_2px_0px_rgba(0,0,0,0.06),0px_0px_0px_1px_rgba(104,113,130,0.16),0px_0px_0px_4px_rgba(1,178,237,0.36)]"
-          >
+            class="search-form bg-white flex gap-2 items-center w-[320px] py-1.5 px-3 rounded-md border border-solid border-[#788baf3d] focus-within:shadow-[0px_1px_2px_0px_rgba(0,0,0,0.06),0px_0px_0px_1px_rgba(104,113,130,0.16),0px_0px_0px_4px_rgba(1,178,237,0.36)]">
             <img src="images/Search-icon.svg" alt="Search-icon" />
             <input
               type="text"
@@ -54,8 +52,7 @@
       <table class="border-collapse w-full table-fixed">
         <thead>
           <tr
-            class="py-3 pr-[50px] pl-2.5 text-[#464f60] text-[14px] font-semibold flex gap-5 w-full"
-          >
+            class="py-3 pr-[50px] pl-2.5 text-[#464f60] text-[14px] font-semibold flex gap-5 w-full">
             <th>
               <label for="AllCustomerCheckbox" class="relative">
                 <input
@@ -65,10 +62,10 @@
                 />
               </label>
             </th>
-            <th class="w-9 text-left">#</th>
-            <th class="w-40 text-left">NAME</th>
+            <th class="sort-col w-9 text-left">#</th>
+            <th class="sort-col w-40 text-left flex items-center gap-2 cursor-pointer" data-sort="name"><span>NAME</span><img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
             <th class="w-[238px] text-left">DESCRIPTION</th>
-            <th class="w-[70px] text-left">STATUS</th>
+            <th class="sort-col w-[70px] text-left flex items-center gap-2 cursor-pointer" data-sort="status"><span>STATUS</span><img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
             <th class="w-[100px] text-right">RATE</th>
             <th class="w-[100px] text-right">BALANCE</th>
             <th class="w-[100px] text-right">DEPOSIT</th>
