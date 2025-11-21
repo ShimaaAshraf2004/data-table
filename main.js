@@ -1,3 +1,5 @@
+const header = document.querySelector("#header");
+const filterAndSearchBar = document.querySelector(".filter-and-search-bar");
 const addCustomerBtn = document.getElementById("add-customer-btn");
 const customersList = document.querySelector(".customers-list");
 const searchInput = document.getElementById("search-input");
@@ -422,6 +424,13 @@ const deleteCustomer = (id) => {
   }
 };
 
+customersList.addEventListener("change", (event) => {
+  if(event.target.classList.contains("row-check-box")) {
+    handleRowSelection();
+    showActionsBar();
+  }
+});
+
 const renderCustomer = (customersArray = arrayofCustomers) => {
   customersList.innerHTML = "";
   if (customersArray.length > 0) {
@@ -506,5 +515,109 @@ headingsort.forEach((head) => {
     isSorted = !isSorted;
   });
 });
+
+const handleRowSelection = () => {
+  const selectAllCheckbox = document.querySelector("#AllCustomerCheckbox");
+  const customerCheckboxes = document.querySelectorAll(".row-check-box");
+  const selectedCount = Array.from(customerCheckboxes).filter(checkbox => checkbox.checked).length;
+  if(selectedCount > 0) {
+    selectAllCheckbox.checked = true;
+  } else {
+    selectAllCheckbox.checked = false;
+  }
+  const rows = document.querySelectorAll("tbody tr");
+  rows.forEach((row) => {
+    const customerCheckbox = row.querySelector(".row-check-box");
+    if(customerCheckbox.checked) {
+      row.classList.add("border-l-2","border-solid","border-blue","bg-[#ebf0fa]!");
+    } else {
+      row.classList.remove("border-l-2","border-solid","border-blue","bg-[#ebf0fa]!");
+    }
+  });
+};
+
+const customerCheckboxes = document.querySelectorAll(".row-check-box");
+customerCheckboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    handleRowSelection();
+    showActionsBar();
+  })
+});
+
+const selectAllCheckboxs = () => {
+  const selectAllCheckbox = document.querySelector("#AllCustomerCheckbox");
+  const customerCheckboxes = document.querySelectorAll(".row-check-box");
+  const rows = document.querySelectorAll("tbody tr");
+  selectAllCheckbox.addEventListener("change", () => {
+  customerCheckboxes.forEach((checkbox,index) => {
+    const row = rows[index];
+        if(selectAllCheckbox.checked) {
+          checkbox.checked = true;
+          row.classList.add("border-l-2","border-solid","border-blue","bg-[#ebf0fa]!");
+        } else {
+          checkbox.checked = false;
+          row.classList.remove("border-l-2","border-solid","border-blue","bg-[#ebf0fa]!");
+        }
+    });
+    showActionsBar();
+  });
+}
+selectAllCheckboxs();
+
+const deleteSelectedCustomers = () => {
+  const customerCheckboxes = document.querySelectorAll(".row-check-box");
+  const selectedCheckboxes = Array.from(customerCheckboxes).filter(checkbox => checkbox.checked);
+  
+  if(selectedCheckboxes.length === 0) return;
+  
+  if(confirm(`Are you sure you want to delete ${selectedCheckboxes.length} customer?`)) {
+    const selectedIds = [];
+    selectedCheckboxes.forEach((checkbox) => {
+      const row = checkbox.closest('tr');
+      const id = parseInt(row.querySelector('td:nth-child(2)').textContent);
+      selectedIds.push(id);
+    });
+    
+    arrayofCustomers = arrayofCustomers.filter(customer => !selectedIds.includes(customer.id));
+    renderIds();
+    saveDataCustomers();
+    renderCustomer();
+    const selectAllCheckbox = document.querySelector("#AllCustomerCheckbox");
+    selectAllCheckbox.checked = false;
+    showActionsBar();
+  }
+};
+
+const CreateActionsBar = () => {
+  const customerCheckboxes = document.querySelectorAll(".row-check-box");
+  const selectedCount = Array.from(customerCheckboxes).filter(checkbox => checkbox.checked).length;
+  const actionBarContainer = document.createElement("div");
+  actionBarContainer.classList = "delete-all flex items-center gap-2";
+  actionBarContainer.innerHTML = `
+    <span class="text-[#464f60]">${selectedCount} selected</span>
+    <button type="button" class="delete-all-btn w-10 h-8 py-2 px-3 bg-white rounded shadow-delete-all-btn cursor-pointer">
+      <img src="images/delete-icon.svg" alt="delete-icon" />
+    </button>`;
+  const actionBar = document.querySelector(".delete-all");
+    if(actionBar) {
+      actionBar.remove();
+    }
+    const deleteAllBtn = actionBarContainer.querySelector(".delete-all-btn");
+    deleteAllBtn.addEventListener("click", deleteSelectedCustomers);
+  return actionBarContainer;
+}
+
+const showActionsBar = () => {
+  const customerCheckboxes = document.querySelectorAll(".row-check-box");
+  const selectedCount = Array.from(customerCheckboxes).filter(checkbox => checkbox.checked).length;
+  const actionBar = CreateActionsBar();
+  if(selectedCount > 0) {
+    filterAndSearchBar.classList.add("hidden");
+    header.prepend(actionBar);
+  } else {
+    filterAndSearchBar.classList.remove("hidden");
+  }
+}
+showActionsBar();
 
 

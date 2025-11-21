@@ -22,10 +22,9 @@
             <img src="images/delete-icon.svg" alt="delete-icon" />
           </button>
         </div> -->
-        <div class="flex items-center gap-2.5" id="filter-and-search-bar">
+        <div class="filter-and-search-bar flex items-center gap-2.5">
           <button
-            class="bg-white py-2 px-3 rounded-md cursor-pointer border border-solid border-[#98a1b21a]"
-          >
+            class="bg-white py-2 px-3 rounded-md cursor-pointer border border-solid border-[#98a1b21a]">
             <img src="images/filter-icon.svg" alt="filter-icon" />
           </button>
           <form
@@ -58,7 +57,7 @@
                 <input
                   type="checkbox"
                   id="AllCustomerCheckbox"
-                  class="row-check-box appearance-none size-4 rounded bg-white border border-solid border-[#98a1b21a] checked:bg-blue checked:shadow-[inset_0px_1px_0px_0px_rgba(75,133,250,1),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_2px_5px_0px_rgba(34,100,230,0.12)] checked:after:content-['\2013'] checked:after:absolute checked:after:-top-1.5 checked:after:left-1 checked:after:text-white checked:after:text-[15px] cursor-pointer"
+                  class="appearance-none size-4 rounded bg-white border border-solid border-[#98a1b21a] checked:bg-blue checked:shadow-[inset_0px_1px_0px_0px_rgba(75,133,250,1),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_2px_5px_0px_rgba(34,100,230,0.12)] checked:after:content-['\2013'] checked:after:absolute checked:after:-top-1.5 checked:after:left-1 checked:after:text-white checked:after:text-[15px] cursor-pointer"
                 />
               </label>
             </th>
@@ -72,7 +71,7 @@
           </tr>
         </thead>
         <tbody class="customers-list [&>tr]:odd:bg-white">
-          <!-- <tr class="py-3 pl-2.5 flex gap-5 w-full group border-l-2 border-solid border-[#2264e6] !bg-[#ebf0fa]">
+          <!-- <tr class="py-3 pl-2.5 flex gap-5 w-full group border-l-2 border-solid border-blue bg-[#ebf0fa]!">
             <td>
               <label for="CustomerCheckbox" class="relative">
                 <input
@@ -143,8 +142,7 @@
         </tbody>
       </table>
       <footer
-        class="my-container absolute bottom-0 text-[#687182] py-3 px-5 w-full backdrop-blur-md bg-sky-light border-t solid border-[#98a1b21a]"
-      >
+        class="my-container absolute bottom-0 text-[#687182] py-3 px-5 w-full backdrop-blur-md bg-sky-light border-t solid border-[#98a1b21a]">
         <div class="flex items-center justify-between">
           <p>0-0 of 0</p>
           <p>Rows per page: 0</p>
