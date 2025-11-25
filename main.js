@@ -189,7 +189,7 @@ const createDescriptionInput = (mode,customer) => {
       name="description"
       id="description"
       class="input-description w-full mx-h-[200px] px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-      ${disabled}>${value}</textarea>`;
+      ${disabled}>${value || "-"}</textarea>`;
   return containerDescription;
 }
 
