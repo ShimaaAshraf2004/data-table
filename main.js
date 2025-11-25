@@ -34,7 +34,8 @@ const addCustomer = (nameValue,descriptionValue,statusValue,rateValue,curancyVal
     rate: rateValue,
     balance: calculateBalance(depositValue, rateValue),
     curancy: curancyValue,
-    depodit: depositValue
+    depodit: depositValue,
+    isSelected: false
   };
   arrayofCustomers.push(newCustomer);
   saveDataCustomers();
@@ -105,7 +106,7 @@ const createCustomerModal = (mode,customer) => {
   document.body.append(form,overlay);
     setTimeout(() => {
       form.classList.replace("scale-0", "scale-100");
-  }, 10);
+    }, 10);
     const inputName = form.querySelector(".input-name");
     setTimeout(() => {
       inputName.focus();
@@ -125,7 +126,7 @@ const createCustomerModalHeader =  (mode) => {
   const header = document.createElement("div");
   header.classList = "flex items-center justify-between gap-2.5 mb-1.5 border-b border-solid border-[#eee]";
   header.innerHTML = `
-    <button class="text-[30px] text-[#7f8c8d] cursor-pointer hover:text-[#e74c3c]" id="close-popup-btn">
+    <button type="button" class="text-[30px] text-[#7f8c8d] cursor-pointer hover:text-[#e74c3c]" id="close-popup-btn">
     &times;
     </button>
     <h2 class="title text-[20px] text-blue font-bold">Add New Customer</h2>
@@ -308,7 +309,7 @@ const createCustomerModalFooter = (mode) => {
 }
 addCustomerBtn.addEventListener("click", () => {
   createCustomerModal("add")
-})
+});
 
 const checkTypeOfStatus = (statusValue) => {
   switch (statusValue) {
@@ -482,11 +483,8 @@ const searchCustomers = (customers,query) => {
   });
 };
 
-searchForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-});
-
 searchInput.addEventListener("input", (event) => {
+  event.preventDefault();
   const search = event.target.value.trim();
   let filteredCustomers = arrayofCustomers;
   if(search) {
