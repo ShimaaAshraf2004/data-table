@@ -15,13 +15,8 @@ const saveDataCustomers = () => {
   localStorage.setItem("customers", JSON.stringify(arrayofCustomers));
 }
 
-const checkData = (nameValue,descriptionValue,statusValue,rateValue,curancyValue,depositValue) => {
+const checkData = (nameValue) => {
   if (!nameValue) return "please enter the customer name";
-  if (!descriptionValue) return "please enter the customer description";
-  if (!statusValue) return "please enter the customer status";
-  if (!rateValue) return "please enter the customer rate";
-  if(!curancyValue) return "please enter the customer curancy";
-  if (!depositValue) return "please enter the customer depodit";
   return "";
 };
 
@@ -34,7 +29,7 @@ const addCustomer = (nameValue,descriptionValue,statusValue,rateValue,curancyVal
     rate: rateValue,
     balance: calculateBalance(depositValue, rateValue),
     curancy: curancyValue,
-    depodit: depositValue,
+    deposit: depositValue,
     isSelected: false
   };
   arrayofCustomers.push(newCustomer);
@@ -57,14 +52,14 @@ const attachFormEvents = (form,mode,customer) => {
     const inputStatus = form.querySelector(".input-status");
     const inputRate = form.querySelector(".input-rate");
     const inputCurancy = form.querySelector(".input-curancy");
-    const inputDepodit = form.querySelector(".input-deposit");
+    const inputDeposit = form.querySelector(".input-deposit");
     const nameValue = inputName.value.trim();
     const descriptionValue = inputDescription.value.trim();
     const statusValue = inputStatus.value;
     const rateValue = inputRate.value;
     const curancyValue = inputCurancy.value;
-    const depositValue = inputDepodit.value;
-    const alertMsg = checkData(nameValue,descriptionValue,statusValue,rateValue,curancyValue,depositValue);
+    const depositValue = inputDeposit.value;
+    const alertMsg = checkData(nameValue);
     if(alertMsg) {
       alert(alertMsg);
       return "";
@@ -180,7 +175,7 @@ const createDescriptionInput = (mode,customer) => {
   const containerDescription = document.createElement("div");
   containerDescription.classList = "flex flex-col gap-2 mb-1";
   const disabled = mode === "view" ? "disabled" : "";
-  const value = mode === "add" ? "" : (customer?.description || "");
+  const value = mode === "add" ? "" : customer?.description;
   containerDescription.innerHTML = `
     <label
     for="description"
@@ -189,7 +184,7 @@ const createDescriptionInput = (mode,customer) => {
       name="description"
       id="description"
       class="input-description w-full mx-h-[200px] px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-      ${disabled}>${value || "-"}</textarea>`;
+      ${disabled}>${value === "" ? "-" : value}</textarea>`;
   return containerDescription;
 }
 
@@ -212,7 +207,7 @@ const createStatusInput = (mode,customer) => {
       id="status"
       class="input-status px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
       ${disabled}>
-      <option value="">Choose your status</option>
+      <option value="-">Choose your status</option>
       <option value="Open" ${value === "Open" ? "selected" : ""}>Open</option>
       <option value="paid" ${value === "paid" ? "selected" : ""}>paid</option>
       <option value="Due" ${value === "Due" ? "selected" : ""}>Due</option>
@@ -225,15 +220,15 @@ const createRateInput = (mode,customer) => {
   const containerRate = document.createElement("div");
   containerRate.classList = "flex flex-col gap-2 mb-1 w-[50%]";
   const disabled = mode === "view" ? "disabled" : "";
-  const value = mode === "add" ? "" : (customer?.rate || "");
+  const value = mode === "add" ? "" : (customer?.rate);
   containerRate.innerHTML = `
-      <label for="rate" class="text-[#2c3e50] font-bold text-[20px]">Rate:</label>
-            <input
-              type="number"
-              id="rate"
-              class="input-rate px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]" 
-              value ="${value}"
-            ${disabled}/>`;
+    <label for="rate" class="text-[#2c3e50] font-bold text-[20px]">Rate:</label>
+      <input
+        type="number"
+        id="rate"
+        class="input-rate px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]" 
+        value ="${value === "" ? 0 : value}"
+      ${disabled}/>`;
   return containerRate;
 }
 
@@ -271,14 +266,14 @@ const createDepositInput = (mode,customer) => {
   const containerDeposit = document.createElement("div");
   containerDeposit.classList = "flex flex-col gap-2 mb-1 w-[50%]";
   const disabled = mode === "view" ? "disabled" : "";
-  const value = mode === "add" ? "" : (customer?.depodit || "");
+  const value = mode === "add" ? "" : (customer?.deposit || "");
   containerDeposit.innerHTML = `
-              <label for="deposit" class="text-[#2c3e50] font-bold text-[20px]">Deposit:</label>
-            <input
-              type="number"
-              id="deposit"
-              class="input-deposit px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-              value = "${value}" ${disabled}/>`;
+    <label for="deposit" class="text-[#2c3e50] font-bold text-[20px]">Deposit:</label>
+    <input
+      type="number"
+      id="deposit"
+      class="input-deposit px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
+      value = "${value === "" ? 0 : value}" ${disabled}/>`;
   return containerDeposit;
 }
 
@@ -365,7 +360,7 @@ const creatCustomerElement = (customer) => {
               <p class="text-[#687182] text-[12px]">${customer.curancy}</p>
             </td>
             <td class="w-[100px] text-right">
-              <h2 class="text-[#464f60]">$${customer.depodit}</h2>
+              <h2 class="text-[#464f60]">$${customer.deposit}</h2>
               <p class="text-[#687182] text-[12px]">${customer.curancy}</p>
         </td>
             <td class="relative">
@@ -451,7 +446,7 @@ const renderCustomer = (customersArray = arrayofCustomers) => {
 saveDataCustomers();
 renderCustomer();
 
-const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,curancyValue,depoditValue) => {
+const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,curancyValue,depositValue) => {
   arrayofCustomers = arrayofCustomers.map((customer) => {
     if (customer.id === id) {
       return {
@@ -461,8 +456,8 @@ const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,
         status: statusValue,
         rate: rateValue,
         curancy: curancyValue,
-        balance: calculateBalance(depoditValue, rateValue),
-        depodit: depoditValue
+        balance: calculateBalance(depositValue, rateValue),
+        deposit: depositValue
       };
     }
     return customer;
@@ -475,10 +470,7 @@ const updateCustomerData = (id,nameValue,descriptionValue,statusValue,rateValue,
 const searchCustomers = (customers,query) => {
   return customers.filter((customer) => {
     return (
-      customer.name.toLowerCase().includes(query.toLowerCase()) ||
-      customer.description.toLowerCase().includes(query.toLowerCase()) ||
-      customer.status.toLowerCase().includes(query.toLowerCase()) ||
-      customer.curancy.toLowerCase().includes(query.toLowerCase()) 
+      customer.name.toLowerCase().includes(query.toLowerCase())
     );
   });
 };
@@ -493,26 +485,38 @@ searchInput.addEventListener("input", (event) => {
   renderCustomer(filteredCustomers);
 });
 
-let originalCustomers = [...arrayofCustomers]; 
-let isSorted = false; 
+let currentSort = { key: null, direction: "asc" };
 
 headingsort.forEach((head) => {
   head.addEventListener("click", () => {
-    const arrowIcons = head.querySelector(".arrow-icon");
-    arrowIcons.classList.toggle("rotate-180");
-    const sortKey = head.dataset.sort;
+    const sortKey = head.dataset.sort; 
     if (!sortKey) return;
-    if (!isSorted) {
-      let sorted = [...arrayofCustomers].sort((a, b) =>
-        a[sortKey].localeCompare(b[sortKey])
-      );
-      renderCustomer(sorted);
+    if (currentSort.key === sortKey) {
+      currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
     } else {
-      renderCustomer(originalCustomers);
+      currentSort.key = sortKey;
+      currentSort.direction = "desc";
     }
-    isSorted = !isSorted;
+    document.querySelectorAll(".arrow-icon")
+      .forEach(icon => icon.classList.remove("rotate-180"));
+    const arrow = head.querySelector(".arrow-icon");
+    if (arrow && currentSort.direction === "desc") {
+      arrow.classList.add("rotate-180");
+    }
+    const sorted = [...arrayofCustomers].sort((a, b) => {
+      let aVal = a[sortKey];
+      let bVal = b[sortKey];
+      if (typeof aVal === "string") return currentSort.direction === "asc"
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      aVal = Number(aVal) || 0;
+      bVal = Number(bVal) || 0;
+      return currentSort.direction === "asc" ? aVal - bVal : bVal - aVal;
+    });
+    renderCustomer(sorted);
   });
 });
+
 
 const handleRowSelection = () => {
   const selectAllCheckbox = document.querySelector("#AllCustomerCheckbox");
@@ -617,5 +621,3 @@ const showActionsBar = () => {
   }
 }
 showActionsBar();
-
-

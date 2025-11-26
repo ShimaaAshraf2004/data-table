@@ -14,7 +14,7 @@
     <title>Data Table</title>
   </head>
   <body class="font-inter flex h-screen bg-sky-light py-10 px-4">
-    <div class="my-container relative bg-ice-blue rounded-lg border border-solid border-[#98a1b21a] h-[800px]">
+    <div class="my-container relative bg-ice-blue rounded-lg border border-solid border-[#98a1b21a] h-[800px] overflow-y-auto">
       <header id="header" class="flex items-center justify-between flex-wrap gap-2.5 pt-4 px-5 pb-4">
         <!-- <div class="hidden delete-all items-center gap-2">
           <span class="text-[#464f60]">0 selected</span>
@@ -42,8 +42,7 @@
         <button
           id="add-customer-btn"
           type="button"
-          class="flex items-center gap-2 cursor-pointer bg-blue py-1.5 px-3 rounded-md border border-solid border-[#98a1b21a] transition hover:bg-dark-blue focus:shadow-[inset_0px_1px_0px_0px_rgba(75,133,250,1),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_0px_0px_1px_rgba(34,100,230,1),0px_0px_0px_4px_rgba(1,178,237,0.36),0px_2px_5px_0px_rgba(34,100,230,0.12)]"
-        >
+          class="flex items-center gap-2 cursor-pointer bg-blue py-1.5 px-3 rounded-md border border-solid border-[#98a1b21a] transition hover:bg-dark-blue focus:shadow-[inset_0px_1px_0px_0px_rgba(75,133,250,1),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_0px_0px_1px_rgba(34,100,230,1),0px_0px_0px_4px_rgba(1,178,237,0.36),0px_2px_5px_0px_rgba(34,100,230,0.12)]">
           <img src="images/add-icon.svg" alt="add-icon" />
           <span class="text-white">Add Customer</span>
         </button>
@@ -61,13 +60,13 @@
                 />
               </label>
             </th>
-            <th class="sort-col w-9 text-left">#</th>
-            <th class="sort-col w-40 text-left flex items-center gap-2 cursor-pointer" data-sort="name"><span>NAME</span><img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
+            <th class="w-9 text-left">#</th>
+            <th class="sort-col w-40 flex items-center gap-2 cursor-pointer" data-sort="name">NAME <img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
             <th class="w-[238px] text-left">DESCRIPTION</th>
-            <th class="sort-col w-[70px] text-left flex items-center gap-2 cursor-pointer" data-sort="status"><span>STATUS</span><img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
-            <th class="w-[100px] text-right">RATE</th>
-            <th class="w-[100px] text-right">BALANCE</th>
-            <th class="w-[100px] text-right">DEPOSIT</th>
+            <th class="w-[70px] text-left flex items-center gap-2 cursor-pointer">STATUS</th>
+            <th class="sort-col w-[100px] flex items-center justify-end gap-2 cursor-pointer" data-sort="rate">RATE <img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
+            <th class="sort-col w-[100px] flex items-center justify-end gap-2 cursor-pointer" data-sort="balance">BALANCE <img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
+            <th class="sort-col w-[100px] flex items-center justify-end gap-2 cursor-pointer" data-sort="deposit">DEPOSIT <img class="arrow-icon size-2.5 my-transition" src="images/arrow-icon.svg" alt="arrow-icon"></th>
           </tr>
         </thead>
         <tbody class="customers-list [&>tr]:odd:bg-white">
