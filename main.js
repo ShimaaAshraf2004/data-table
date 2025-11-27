@@ -184,7 +184,7 @@ const createDescriptionInput = (mode,customer) => {
       name="description"
       id="description"
       class="input-description w-full mx-h-[200px] px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-      ${disabled}>${value === "" ? "-" : value}</textarea>`;
+      ${disabled}>${value}</textarea>`;
   return containerDescription;
 }
 
@@ -207,7 +207,7 @@ const createStatusInput = (mode,customer) => {
       id="status"
       class="input-status px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
       ${disabled}>
-      <option value="-">Choose your status</option>
+      <option value="active">Choose your status</option>
       <option value="Open" ${value === "Open" ? "selected" : ""}>Open</option>
       <option value="paid" ${value === "paid" ? "selected" : ""}>paid</option>
       <option value="Due" ${value === "Due" ? "selected" : ""}>Due</option>
@@ -227,7 +227,7 @@ const createRateInput = (mode,customer) => {
         type="number"
         id="rate"
         class="input-rate px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]" 
-        value ="${value === "" ? 0 : value}"
+        value ="${value}"
       ${disabled}/>`;
   return containerRate;
 }
@@ -240,11 +240,11 @@ const createContainerCurancyAndDeposit = (mode,customer) => {
 }
 
 const createCurancyInput = (mode,customer) => {
-  const containerCutancy = document.createElement("div");
-  containerCutancy.classList = "flex flex-col gap-2 mb-1 w-[47%]";
+  const containerCurancy = document.createElement("div");
+  containerCurancy.classList = "flex flex-col gap-2 mb-1 w-[47%]";
   const disabled = mode === "view" ? "disabled" : "";
   const value = mode === "add" ? "" : (customer?.curancy || "");
-  containerCutancy.innerHTML = `
+  containerCurancy.innerHTML = `
     <label for="curancy" class="text-[#2c3e50] font-bold text-[20px]">Curancy:</label>
     <select
       name="curancy"
@@ -259,8 +259,27 @@ const createCurancyInput = (mode,customer) => {
       <option value="JPY" ${value === "JPY" ? "selected" : ""}>JPY</option>
       <option value="AUD" ${value === "AUD" ? "selected" : ""}>AUD</option>
     </select>`;
-  return containerCutancy;
+  return containerCurancy;
 }
+
+const checkCurancy = (curancyValue) => {
+  switch (curancyValue) {
+    case "CAD":
+      return "C$";
+    case "USD":
+      return "$";
+    case "EUR":
+      return "€";
+    case "CHF":
+      return "Fr";
+    case "JPY":
+      return "¥";
+    case "AUD":
+      return "$";
+    default:
+      return "";
+  };
+};
 
 const createDepositInput = (mode,customer) => {
   const containerDeposit = document.createElement("div");
@@ -273,7 +292,7 @@ const createDepositInput = (mode,customer) => {
       type="number"
       id="deposit"
       class="input-deposit px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
-      value = "${value === "" ? 0 : value}" ${disabled}/>`;
+      value = "${value}" ${disabled}/>`;
   return containerDeposit;
 }
 
@@ -326,6 +345,19 @@ const calculateBalance = (depositValue, rateValue) => {
   return balanceValue;
 };
 
+const checkBalanceValue = (value) => {
+  return value <= 0 ? "0" : value;
+};
+
+const formatValueOrDash = (value) => {
+  if (value === null || value === undefined || value.trim() === "") return "-";
+  return value;
+};
+const formatValueOrDashForCurancy = (value) => {
+  if (value === null || value === undefined || value.trim() === "") return "";
+  return value;
+}
+
 const creatCustomerElement = (customer) => {
   const tr = document.createElement("tr");
   tr.className = "py-3 pl-2.5 flex gap-5 w-full group";
@@ -344,24 +376,24 @@ const creatCustomerElement = (customer) => {
           <h2 class="text-[#171c26]">${customer.name}</h2>
           <p class="text-[#687182] text-[12px]">${Date.now()}</p>
         </td>
-        <td class="w-[238px] text-left text-[#464f60]">${customer.description}</td>
+        <td class="w-[238px] text-left text-[#464f60]">${formatValueOrDash(customer.description)}</td>
             <td class="w-[70px]">
               <div
                 class="text-[13px] px-2.5 py-px rounded-[20px] text-center ${checkTypeOfStatus(customer.status)}">
                 ${customer.status}
               </div>
             </td>
-            <td class="w-[100px] text-right">
-              <h2 class="text-[#464f60]">$${customer.rate}</h2>
-              <p class="text-[#687182] text-[12px]">${customer.curancy}</p>
+            <td class="w-[100px] px-1.5 text-right">
+              <h2 class="text-[#464f60]">${checkCurancy(customer.curancy)} ${formatValueOrDash(customer.rate)}</h2>
+              <p class="text-[#687182] text-[12px]">${formatValueOrDashForCurancy(customer.curancy)}</p>
             </td>
-            <td class="w-[100px] text-right">
-              <h2 id="balance" class="${customer.balance <= 0 ? "text-red" : "text-green"}">$${customer.balance}</h2>
-              <p class="text-[#687182] text-[12px]">${customer.curancy}</p>
+            <td class="w-[100px] px-1.5 text-right">
+              <h2 id="balance" class="${customer.balance <= 0 ? "text-red" : "text-green"}">${checkCurancy(customer.curancy)} ${checkBalanceValue(customer.balance)}</h2>
+              <p class="text-[#687182] text-[12px]">${formatValueOrDashForCurancy(customer.curancy)}</p>
             </td>
-            <td class="w-[100px] text-right">
-              <h2 class="text-[#464f60]">$${customer.deposit}</h2>
-              <p class="text-[#687182] text-[12px]">${customer.curancy}</p>
+            <td class="w-[100px] px-1.5 text-right">
+              <h2 class="text-[#464f60]">${checkCurancy(customer.curancy)} ${formatValueOrDash(customer.deposit)}</h2>
+              <p class="text-[#687182] text-[12px]">${formatValueOrDashForCurancy(customer.curancy)}</p>
         </td>
             <td class="relative">
               <button
@@ -485,20 +517,28 @@ searchInput.addEventListener("input", (event) => {
   renderCustomer(filteredCustomers);
 });
 
-let currentSort = { key: null, direction: "asc" };
+let currentSort = { key: null, direction: "none" }; 
 
 headingsort.forEach((head) => {
   head.addEventListener("click", () => {
-    const sortKey = head.dataset.sort; 
+    const sortKey = head.dataset.sort;
     if (!sortKey) return;
-    if (currentSort.key === sortKey) {
-      currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
-    } else {
+    if (sortKey === "description") return;
+    if (currentSort.key !== sortKey || currentSort.direction === "none") {
       currentSort.key = sortKey;
+      currentSort.direction = "asc";
+    } else if (currentSort.direction === "asc") {
       currentSort.direction = "desc";
+    } else if (currentSort.direction === "desc") {
+      currentSort.key = null;
+      currentSort.direction = "none";
     }
     document.querySelectorAll(".arrow-icon")
       .forEach(icon => icon.classList.remove("rotate-180"));
+    if (currentSort.direction === "none") {
+      renderCustomer(); 
+      return;
+    }
     const arrow = head.querySelector(".arrow-icon");
     if (arrow && currentSort.direction === "desc") {
       arrow.classList.add("rotate-180");
@@ -506,9 +546,13 @@ headingsort.forEach((head) => {
     const sorted = [...arrayofCustomers].sort((a, b) => {
       let aVal = a[sortKey];
       let bVal = b[sortKey];
-      if (typeof aVal === "string") return currentSort.direction === "asc"
+      if (typeof aVal === "string" || typeof bVal === "string") {
+        aVal = (aVal ?? "").toString().toLowerCase();
+        bVal = (bVal ?? "").toString().toLowerCase();
+        return currentSort.direction === "asc"
           ? aVal.localeCompare(bVal)
           : bVal.localeCompare(aVal);
+      }
       aVal = Number(aVal) || 0;
       bVal = Number(bVal) || 0;
       return currentSort.direction === "asc" ? aVal - bVal : bVal - aVal;
@@ -516,7 +560,6 @@ headingsort.forEach((head) => {
     renderCustomer(sorted);
   });
 });
-
 
 const handleRowSelection = () => {
   const selectAllCheckbox = document.querySelector("#AllCustomerCheckbox");
