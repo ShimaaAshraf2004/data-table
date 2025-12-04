@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <script src="./zack.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <title>Document</title>
+  </head>
+  <body class="px-4 py-5">
+    <header
+      id="header"
+      class="flex items-center justify-between flex-wrap gap-2.5 mb-10"
+    >
+      <input
+        type="text"
+        placeholder="Search customers by ID or name"
+        id="input-search"
+        class="search-input"
+      />
+      <button id="btn-create-user" type="button" class="add-btn">
+        <span class="text-white">Add Customer</span>
+      </button>
+    </header>
+    <main>
+      <table class="table-auto border-collapse w-full">
+        <thead class="bg-gray-100">
+          <th class="px-2.5 py-3 min-w-12">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="rowIndex"
+              data-active="false"
+              data-order="none"
+            >
+              #<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th class="px-2.5 py-3 text-left">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="name"
+              data-active="false"
+              data-order="none"
+            >
+              Customer Name<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th
+            class="px-2.5 py-3 text-left uppercase font-medium text-xs text-gray-500 "
+          >
+            description
+          </th>
+          <th class="px-2.5 py-3 text-left min-w-[298px]">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="status"
+              data-active="false"
+              data-order="none"
+            >
+              status<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th class="px-2.5 py-3 text-left min-w-[298px]">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="rate"
+              data-active="false"
+              data-order="none"
+            >
+              rate<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th class="px-2.5 py-3 text-left min-w-[298px]">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="balance"
+              data-active="false"
+              data-order="none"
+            >
+              balance<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th class="px-2.5 py-3 text-left min-w-[298px]">
+            <button
+              type="button"
+              class="sort-button"
+              data-click-count="0"
+              data-sort-key="deposit"
+              data-active="false"
+              data-order="none"
+            >
+              deposit<i class="ph ph-arrow-circle-up text-lg"></i>
+            </button>
+          </th>
+          <th
+            class="px-2.5 py-3 uppercase font-medium text-xs text-gray-500 min-w-12"
+          >
+            Actions
+          </th>
+        </thead>
+        <tbody id="customers-table-body"></tbody>
+      </table>
+    </main>
+  </body>
+</html>

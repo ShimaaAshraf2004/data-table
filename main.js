@@ -127,7 +127,7 @@ const createCustomerModalHeader =  (mode) => {
     <h2 class="title text-[20px] text-blue font-bold">Add New Customer</h2>
   `;
   const title = header.querySelector(".title");
-  title.textContent = 
+  title.textContent =
     mode === "add"
     ? "Add New Customer"
     : mode === "edit"
@@ -226,7 +226,7 @@ const createRateInput = (mode,customer) => {
       <input
         type="number"
         id="rate"
-        class="input-rate px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]" 
+        class="input-rate px-3 py-2 rounded-sm border border-solid border-[#eee] outline-none focus:border-[blue]"
         value ="${value}"
       ${disabled}/>`;
   return containerRate;
@@ -517,7 +517,7 @@ searchInput.addEventListener("input", (event) => {
   renderCustomer(filteredCustomers);
 });
 
-let currentSort = { key: null, direction: "none" }; 
+let currentSort = { key: null, direction: "none" };
 
 headingsort.forEach((head) => {
   head.addEventListener("click", () => {
@@ -536,7 +536,7 @@ headingsort.forEach((head) => {
     document.querySelectorAll(".arrow-icon")
       .forEach(icon => icon.classList.remove("rotate-180"));
     if (currentSort.direction === "none") {
-      renderCustomer(); 
+      renderCustomer();
       return;
     }
     const arrow = head.querySelector(".arrow-icon");
@@ -612,9 +612,9 @@ selectAllCheckboxs();
 const deleteSelectedCustomers = () => {
   const customerCheckboxes = document.querySelectorAll(".row-check-box");
   const selectedCheckboxes = Array.from(customerCheckboxes).filter(checkbox => checkbox.checked);
-  
+
   if(selectedCheckboxes.length === 0) return;
-  
+
   if(confirm(`Are you sure you want to delete ${selectedCheckboxes.length} customer?`)) {
     const selectedIds = [];
     selectedCheckboxes.forEach((checkbox) => {
@@ -622,7 +622,7 @@ const deleteSelectedCustomers = () => {
       const id = parseInt(row.querySelector('td:nth-child(2)').textContent);
       selectedIds.push(id);
     });
-    
+
     arrayofCustomers = arrayofCustomers.filter(customer => !selectedIds.includes(customer.id));
     renderIds();
     saveDataCustomers();
